@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Book } from '../book/book.model'
+import { BooksService } from '../book/books.service';
 
 @Component({
   selector: 'app-books-section',
@@ -9,21 +10,9 @@ import { Book } from '../book/book.model'
 export class BooksSectionComponent implements OnInit {
 
   @Input() sectionName: string;
-  books: Book[] = [];
+  @Input() statusToShow: number;
 
-  constructor() { 
-    let book1 = new Book('El Quijote de La Mancha', 'Miguel de Cervantes Saavedra');
-    let book2 = new Book('Cien años de Soledad', 'Gabriel García Marquez');
-    let book3 = new Book('Memoria de mis putas tristes', 'Gabriel García Marquez');
-    let book4 = new Book('Cóndores no entierran todos los días', 'Gustavo Alvares Gardeazabal');
-    let book5 = new Book('María', 'GJorge Isaacs');
-
-
-    this.books.push(book1);
-    this.books.push(book2);
-    this.books.push(book3);
-    this.books.push(book4);
-    this.books.push(book5);
+  constructor(private booksManager: BooksService) { 
   }
 
   ngOnInit() {
@@ -31,7 +20,7 @@ export class BooksSectionComponent implements OnInit {
 
   getBooks()
   {
-    return this.books;
+    return this.booksManager.getBooksByStatus(this.statusToShow);
   }
 
 }

@@ -17,7 +17,7 @@ export class BookCoverComponent implements OnInit {
 
   holi()
   {
-    console.log("Holi");
+    console.log("Clicked!!!");
   }
 
 }

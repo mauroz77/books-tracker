@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'books-tracker';
+  private dates: any = {};
+
+  onDateChange(date: Date): void {
+    console.log('Date is ' + date);
+  }
+
 }
