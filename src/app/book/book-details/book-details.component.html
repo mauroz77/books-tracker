@@ -1,41 +1,37 @@
-<form class="ui large form segment">
+
+<form [formGroup]="detailsForm" class="ui large form segment">
   <h3 class="ui header">Book's Information</h3>
   <div class="field">
     <label>Title</label>
-    <input type="text" name="new-title" #newtitle placeholder="Title">
+    <input type="text" name="new-title" #newtitle placeholder="Title" value={{getTitleToDisplay()}}>
   </div>
   <div class="field">
     <label>Author</label>
-    <input type="text" name="new-author" #newauthor placeholder="Author">
+    <input type="text" name="new-author" #newauthor placeholder="Author" value={{getAuthorToDisplay()}}>
   </div>
   <div class="field">
-    <label for="genre">Genre:</label>
-    <select class="ui dropdown" #newgenre>
-      <option value="">Gender</option>
-      <option value="1">Fiction</option>
-      <option value="2">History</option>
-      <option value="3">Science fiction</option>
-      <option value="4">Horror</option>
-    </select>
-  </div>
+      <label for="genre">Genre:</label>
+      <select formControlName="genreControl" class="ui dropdown" #newgenre >
+          <option [value]="genre" *ngFor="let genre of genres">  {{genre}}</option>
+      </select>
+    </div>
 
   <div class="field">
     <label for="status">Status:</label>
-    <select class="ui dropdown" #newstatus>
-      <option value="">Status</option>
-      <option value="1">Reading now</option>
-      <option value="2">Already read</option>
-      <option value="3">I want to read it</option>
+    <select formControlName="statusControl" class="ui dropdown" #newstatus >
+        <option [value]="status" *ngFor="let status of statuses">   {{status}}</option>
     </select>
   </div>
 
   <div class="field">
     <label>Notes</label>
-    <textarea rows="2" #newnotes></textarea>
+    <textarea rows="2" #newnotes value={{getDescriptionToDisplay()}}></textarea>
   </div>
+
+  
 
   <button (click)="saveBookDetails(newtitle, newauthor, newgenre, newstatus, newnotes)" class="ui positive right floated button">
     Save details</button>
   <div class="ui hidden divider"></div>
   <div class="ui hidden divider"></div>
-</form>
+</form>  

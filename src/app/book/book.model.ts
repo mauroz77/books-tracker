@@ -2,10 +2,10 @@ export class Book {
     title: string;
     author: string;
     description: string;
-    genre: number;
-    status: number;
+    genre: string;
+    status: string;
 
-    constructor(title: string, author: string, genre: number, status: number, description: string) {
+    constructor(title: string, author: string, genre: string, status: string, description: string) {
         this.title = title;
         this.author = author;
         this.genre = genre;

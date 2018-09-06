@@ -11,24 +11,27 @@ export class BooksService {
         let book1 = new Book(
             'El Quijote de La Mancha',
             'Miguel de Cervantes Saavedra',
-            1,
-            1,
+            "Fantasy",
+            "Reading",
             "Hola");
         let book2 = new Book(
             'Cien años de Soledad',
             'Gabriel García Marquez',
-            1,
-            1,
+            "Fantasy",
+            "Reading",
             "hola2");
         let book3 = new Book(
             'Memoria de mis putas tristes',
-            'Gabriel García Marquez', 1, 2, "");
+            'Gabriel García Marquez', "Fantasy",
+            "Read", "");
         let book4 = new Book(
             'Cóndores no entierran todos los días',
-            'Gustavo Alvares Gardeazabal', 2, 1, "...");
+            'Gustavo Alvares Gardeazabal', "Fantasy",
+            "Reading", "...");
         let book5 = new Book(
             'María',
-            'Jorge Isaacs', 2, 1, "");
+            'Jorge Isaacs', "Fantasy",
+            "Reading", "");
 
         this.allTheBooks.push(book1);
         this.allTheBooks.push(book2);
@@ -37,7 +40,7 @@ export class BooksService {
         this.allTheBooks.push(book5);
     }
 
-    public getBooksByStatus(status: number): Book[] {
+    public getBooksByStatus(status: string): Book[] {
         return this.allTheBooks.filter(book => book.status == status)
     }
 
