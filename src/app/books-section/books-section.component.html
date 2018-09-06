@@ -1,0 +1,8 @@
+<h3 class="ui header">{{ sectionName }}</h3>
+<div class="ui hidden divider"></div>
+<div class="ui grid">
+    <app-book-cover *ngFor="let book of getBooks()" [book]="book">
+    </app-book-cover> 
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>

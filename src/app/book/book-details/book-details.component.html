@@ -1,0 +1,55 @@
+<form class="ui large form segment">
+<h3 class="ui header">Book's Information</h3>
+<div class="field">
+  <label>Title</label>
+  <input type="text" name="new-title" placeholder="Title">
+</div>
+<div class="field">
+  <label>Author</label>
+  <input type="text" name="new-author" placeholder="Author">
+</div>
+<div class="field">
+  <label for="title">Genre:</label>
+  <select class="ui dropdown">
+    <option value="">Gender</option>
+    <option value="1">Male</option>
+    <option value="0">Female</option>
+  </select>
+</div>
+
+<div class="field">
+    <label>Notes</label>
+    <textarea rows="2"></textarea>
+  </div>
+
+
+  <div class="two fields">
+      <div class="field">
+        <label>Start date</label>
+        <div class="ui calendar" id="rangestart">
+          <div class="ui input left icon">
+            <i class="calendar icon"></i>
+            <input type="text" placeholder="Start">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>End date</label>
+        <div class="ui calendar" id="rangeend">
+          <div class="ui input left icon">
+            <i class="calendar icon"></i>
+            <input type="text" placeholder="End">
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="ui star rating" data-rating="3"></div>
+
+<button (click)="addArticle(newtitle, newlink)" class="ui positive right floated button">
+  Submit link </button>
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
+</form>
+
+
