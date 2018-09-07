@@ -1,4 +1,3 @@
-
 <form [formGroup]="detailsForm" class="ui large form segment">
   <h3 class="ui header">Book's Information</h3>
   <div class="field">
@@ -10,16 +9,16 @@
     <input type="text" name="new-author" #newauthor placeholder="Author" value={{getAuthorToDisplay()}}>
   </div>
   <div class="field">
-      <label for="genre">Genre:</label>
-      <select formControlName="genreControl" class="ui dropdown" #newgenre >
-          <option [value]="genre" *ngFor="let genre of genres">  {{genre}}</option>
-      </select>
-    </div>
+    <label for="genre">Genre:</label>
+    <select formControlName="genreControl" class="ui dropdown" #newgenre>
+      <option [value]="genre" *ngFor="let genre of genres"> {{genre}}</option>
+    </select>
+  </div>
 
   <div class="field">
     <label for="status">Status:</label>
-    <select formControlName="statusControl" class="ui dropdown" #newstatus >
-        <option [value]="status" *ngFor="let status of statuses">   {{status}}</option>
+    <select formControlName="statusControl" class="ui dropdown" #newstatus>
+      <option [value]="status" *ngFor="let status of statuses"> {{status}}</option>
     </select>
   </div>
 
@@ -28,10 +27,17 @@
     <textarea rows="2" #newnotes value={{getDescriptionToDisplay()}}></textarea>
   </div>
 
-  
+  <div class="ui buttons right floated">
+    <button class="ui button" onClick="$('.ui.modal').modal('hide');console.log(333)"> Cancel</button>
+    <div class="or"></div>
+    <button (click)="saveBookDetails(newtitle, newauthor, newgenre, newstatus, newnotes)"  class="ui positive button">Save</button>
+  </div>
 
+  <!--
+  <input type="button" value="Cerrar" onClick="$('.ui.modal').modal('hide');" />
   <button (click)="saveBookDetails(newtitle, newauthor, newgenre, newstatus, newnotes)" class="ui positive right floated button">
     Save details</button>
+    -->
   <div class="ui hidden divider"></div>
   <div class="ui hidden divider"></div>
-</form>  
+</form>

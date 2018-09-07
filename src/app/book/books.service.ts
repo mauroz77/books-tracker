@@ -44,4 +44,19 @@ export class BooksService {
         return this.allTheBooks.filter(book => book.status == status)
     }
 
+    public findBook(name: string): Book{
+        let x = this.allTheBooks.filter(book => book.title === name);
+        if (x.length > 0)
+        {
+            return x[0];
+        }
+        else{
+            return null;
+        }
+    }
+
+    public addNewBook(newBook: Book):void {
+        this.allTheBooks.push(newBook);
+    }
+
 }

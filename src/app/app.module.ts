@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {SuiModule} from 'ng2-semantic-ui';
 
 import { AppComponent } from './app.component';
 import { BookCoverComponent } from './book/book-cover/book-cover.component';
@@ -9,7 +10,7 @@ import { BooksSectionComponent } from './books-section/books-section.component';
 import { BooksService } from './book/books.service';
 
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AppComponent,
     BookCoverComponent,
@@ -19,7 +20,8 @@ import { BooksService } from './book/books.service';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SuiModule
   ],
   providers: [BooksService],
   bootstrap: [AppComponent]

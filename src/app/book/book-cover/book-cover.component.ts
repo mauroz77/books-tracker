@@ -18,6 +18,8 @@ export class BookCoverComponent implements OnInit {
   holi()
   {
     console.log("Clicked!!!");
+    //$('.ui.modal').modal('show');
+    (<any>$('.ui.modal') ).modal('show');
   }
 
 }

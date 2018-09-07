@@ -10,7 +10,7 @@ import { BooksService } from '../book/books.service';
 export class BooksSectionComponent implements OnInit {
 
   @Input() sectionName: string;
-  @Input() statusToShow: number;
+  @Input() statusToShow: string;
 
   constructor(private booksManager: BooksService) { 
   }

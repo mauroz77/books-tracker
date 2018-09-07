@@ -1,14 +1,20 @@
+<div class="ui hidden divider"></div>
+
+<div class="ui modal">
+  <div class="header">Add Information for a book</div>
+  <div class="content">
+    <app-book-details></app-book-details>
+  </div>
+</div>
 
 
-  
-<app-book-details></app-book-details>
 <div>
-    <app-books-section sectionName='Reading Now' statusToShow='Reading'></app-books-section>
-  </div>
-  
-  <div>
-    <app-books-section sectionName='I want to read' statusToShow='Read'></app-books-section>
-  </div>
+  <app-books-section sectionName='Reading Now' statusToShow='Reading'></app-books-section>
+</div>
+
+<div>
+  <app-books-section sectionName='I want to read' statusToShow='Read'></app-books-section>
+</div>
 
 
-  
+<input type="button" value="showModal" onClick="$('.ui.modal').modal('show');" />

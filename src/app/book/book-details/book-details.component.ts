@@ -15,12 +15,14 @@ export class BookDetailsComponent implements OnInit {
   @Input() book: Book;
   name: string = 'OnlyTest';
 
-  genres = ['Fantasy',  'Fiction', 'Science fiction', 'Action and Adventure', 'Mystery', 'Health', 'Science', 'Biographies'];
+  genres = ['Fantasy',  'Fiction', 'Science fiction', 'Action and Adventure',
+    'Mystery', 'Health', 'Science', 'Biographies'];
   statuses = ['Reading', 'Read', 'Planned'];
   detailsForm: FormGroup;
 
   constructor(private booksManager: BooksService, private fb: FormBuilder) {
     this.book = new Book('dummyTitle', 'dummyAuthor','Fiction', 'Reading','desc');
+
    }
 
   ngOnInit() {
@@ -35,19 +37,33 @@ export class BookDetailsComponent implements OnInit {
     genre: HTMLInputElement,
     status: HTMLInputElement,
     notes: HTMLInputElement) : boolean { 
-    console.log(`Adding book title: ${title.value} and author: ${author.value} 
-      genre ${genre.value} status ${status.value} notes ${notes.value}`); 
 
-    this.booksManager.allTheBooks.push(
-      new Book(title.value, author.value, genre.value, status.value, notes.value))
-      
+    let aBook = this.booksManager.findBook(title.value);
+    if (aBook === null)
+    {
+      let newBook: Book = new Book(title.value, author.value, genre.value, status.value, notes.value);
+      this.booksManager.addNewBook(newBook);
+    }
+    else{
+      aBook.title = title.value;
+      aBook.author = author.value;
+      aBook.genre = genre.value;
+      aBook.status = status.value;
+      aBook.description = notes.value;
+    }
+
+    //<any>($(".ui.modal")).modal('hide');
+    (<any>$('.ui.modal') ).modal('hide');
+    
+    console.log('Saved!');
+
     return false;
   }
 
   getTitleToDisplay(): string
   {
     let result = '';
-    console.log(this.book);
+
     if (this.book != undefined)
     {
       result = this.book.title;
