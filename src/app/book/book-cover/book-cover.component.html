@@ -1,10 +1,19 @@
-<div (click)="showBookDetails()" class="four wide column">
-  <div class="ui raised segment" style="width: 170px; height: 220px;">
+<div class="four wide column">
+  <div class="ui raised segment" style="width: 170px; height: 220px;" (mouseover)="hay($event)">
     <h3 class="ui header">{{ book.title}}</h3>
+    <div class="bottomButton">
+      
+      <button class="ui icon button" (click)="showBookDetails()" data-content="Add users to your feed">
+        <i class="edit icon"></i>
+      </button>
+      <button class="ui icon button" (click)="deleteBook()">
+          <i class="trash icon" data-content="Delete this book"></i>
+        </button>
+    </div>
     <div class="bottom aligned content">
-        <div class="header">
-            {{ book.author }}
-        </div>
+      <div class="header">
+        {{ book.author }}
       </div>
+    </div>
   </div>
 </div>

@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+.ui.raised.segment {
+    position: relative;
+  }
+
+  /*
+  .ui.raised.segment:hover {
+    background: #97B6F5;
+  }
+  */
+
+ .bottomButton {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+ }

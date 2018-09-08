@@ -3,7 +3,7 @@ import { FormsModule, FormGroup, FormBuilder } from '@angular/forms';
 
 import { BooksService } from './../books.service';
 import { Book } from '../book.model';
-import { ApiService } from  '../../api.service';
+import { ApiService } from '../../api.service';
 
 declare var $: any;
 
@@ -17,12 +17,12 @@ export class BookDetailsComponent implements OnInit {
   @Input() show: boolean;
 
   genres = ['Fantasy', 'Fiction', 'Science fiction', 'Action and Adventure',
-    'Mystery', 'Health', 'Science', 'Biographies'];
+    'Mystery', 'Health', 'Science', 'Biographies', 'Historical Novel', 'Education'];
   statuses = ['Reading', 'Read', 'Planned'];
   detailsForm: FormGroup;
   @Output() showValueChange = new EventEmitter();
 
-  constructor(private booksManager: BooksService, private fb: FormBuilder, private  apiService:  ApiService) {
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
   }
 
   ngOnInit() {
@@ -52,7 +52,8 @@ export class BookDetailsComponent implements OnInit {
       console.log('Book did not exist. Addig book:');
       let newBook: Book = new Book(title.value, author.value, genre.value, status.value, notes.value);
       console.log(newBook);
-      this.apiService.addNewBook(newBook);
+      //this.apiService.addNewBook(newBook);
+      this.addBook(newBook);
     }
     else {
       aBook.title = title.value;
@@ -60,6 +61,7 @@ export class BookDetailsComponent implements OnInit {
       aBook.genre = genre.value;
       aBook.status = status.value;
       aBook.description = notes.value;
+      this.updateBook(aBook);
       console.log('Book existed. Updating book:');
       console.log(aBook);
 
@@ -70,6 +72,35 @@ export class BookDetailsComponent implements OnInit {
 
     return false;
   }
+
+  addBook(book: Book) {
+    var bookPayLoad = {
+      title: book.title,
+      author: book.author,
+      genre: book.genre,
+      status: book.status,
+      description: book.description
+    };
+    this.apiService.createBook(book).subscribe((response) => {
+      console.log(response);
+    });
+    this.apiService.initBooks();
+  }
+
+  updateBook(book: Book) {
+    var bookPayLoad = {
+      title: book.title,
+      author: book.author,
+      genre: book.genre,
+      status: book.status,
+      description: book.description
+    };
+    this.apiService.updateBook(book).subscribe((response) => {
+      console.log(response);
+    });
+    this.apiService.initBooks();
+  }
+
 
   closeBookDetails(): void {
     this.hideComponentAndEmitStatus();

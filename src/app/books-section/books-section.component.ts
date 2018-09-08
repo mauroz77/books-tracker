@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Book } from '../book/book.model'
-import { BooksService } from '../book/books.service';
 
+import { Book } from '../book/book.model'
 import { ApiService } from  '../api.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class BooksSectionComponent implements OnInit {
   @Input() statusToShow: string;
   @Output() showValueChange = new EventEmitter();
 
-  constructor(private booksManager: BooksService, private  apiService:  ApiService) {
+  constructor(private  apiService:  ApiService) {
   }
 
   ngOnInit() {
