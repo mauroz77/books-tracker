@@ -1,1 +1,1 @@
-Hi
+Books Tracker. Keep track to the books you're reading, already read, or are planning to read.
