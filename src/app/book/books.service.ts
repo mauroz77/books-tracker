@@ -1,12 +1,24 @@
+import { Component, OnInit} from '@angular/core';
+
 import { Book } from '../book/book.model'
+import { ApiService } from  './../api.service'
 
 export class BooksService {
     allTheBooks: Book[] = [];
     currentBookToEdit: Book;
+    private  otherBooks:  Array<object> = [];
 
     constructor() {
         this.loadAllTheBooks();
+       // this.getContacts();
     }
+
+   /* public  getContacts(){
+        this.apiService.getBooks().subscribe((data:  Array<object>) => {
+            this.otherBooks  =  data;
+            console.log(data);
+        });
+    }*/
 
     loadAllTheBooks() {
         let book1 = new Book(

@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 import { BooksService } from './book/books.service';
+import { ApiService } from  '../app/api.service';
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,7 @@ import { BooksService } from './book/books.service';
 export class AppComponent {
   title = 'books-tracker';
 
-  constructor(private booksManager: BooksService) {
+  constructor(private booksManager: BooksService, private  apiService:  ApiService) {
   }
 
   // The book-details component will be notify to any change in this status
@@ -22,7 +24,7 @@ export class AppComponent {
   }
 
   openNewBookDetails(): void {
-    this.booksManager.setCurrentBookToEdit(undefined);
+    this.apiService.setCurrentBookToEdit(undefined);
     this.show = true;
     (<any>$('.ui.modal') ).modal('show');
     return;

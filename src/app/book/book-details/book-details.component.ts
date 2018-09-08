@@ -3,6 +3,9 @@ import { FormsModule, FormGroup, FormBuilder } from '@angular/forms';
 
 import { BooksService } from './../books.service';
 import { Book } from '../book.model';
+import { ApiService } from  '../../api.service';
+
+declare var $: any;
 
 
 @Component({
@@ -19,7 +22,7 @@ export class BookDetailsComponent implements OnInit {
   detailsForm: FormGroup;
   @Output() showValueChange = new EventEmitter();
 
-  constructor(private booksManager: BooksService, private fb: FormBuilder) {
+  constructor(private booksManager: BooksService, private fb: FormBuilder, private  apiService:  ApiService) {
   }
 
   ngOnInit() {
@@ -44,12 +47,12 @@ export class BookDetailsComponent implements OnInit {
     status: HTMLInputElement,
     notes: HTMLInputElement): boolean {
 
-    let aBook = this.booksManager.findBook(title.value);
+    let aBook = this.apiService.findBook(title.value);
     if (aBook === null) {
       console.log('Book did not exist. Addig book:');
       let newBook: Book = new Book(title.value, author.value, genre.value, status.value, notes.value);
       console.log(newBook);
-      this.booksManager.addNewBook(newBook);
+      this.apiService.addNewBook(newBook);
     }
     else {
       aBook.title = title.value;
@@ -81,32 +84,32 @@ export class BookDetailsComponent implements OnInit {
   getTitleToDisplay(): string {
     let result = '';
 
-    if (this.booksManager.getCurrentBookToEdit() != undefined) {
-      result = this.booksManager.getCurrentBookToEdit().title;
+    if (this.apiService.getCurrentBookToEdit() != undefined) {
+      result = this.apiService.getCurrentBookToEdit().title;
     }
     return result;
   }
 
   getAuthorToDisplay(): string {
     let result = '';
-    if (this.booksManager.getCurrentBookToEdit() != undefined) {
-      result = this.booksManager.getCurrentBookToEdit().author;
+    if (this.apiService.getCurrentBookToEdit() != undefined) {
+      result = this.apiService.getCurrentBookToEdit().author;
     }
     return result;
   }
 
   getGenreToDisplay(): string {
     let result = '';
-    if (this.booksManager.getCurrentBookToEdit() != undefined) {
-      result = this.booksManager.getCurrentBookToEdit().genre;
+    if (this.apiService.getCurrentBookToEdit() != undefined) {
+      result = this.apiService.getCurrentBookToEdit().genre;
     }
     return result;
   }
 
   getStatusToDisplay(): string {
     let result = '';
-    if (this.booksManager.getCurrentBookToEdit() != undefined) {
-      result = this.booksManager.getCurrentBookToEdit().status;
+    if (this.apiService.getCurrentBookToEdit() != undefined) {
+      result = this.apiService.getCurrentBookToEdit().status;
     }
 
     return result;
@@ -114,8 +117,8 @@ export class BookDetailsComponent implements OnInit {
 
   getDescriptionToDisplay(): string {
     let result = '';
-    if (this.booksManager.getCurrentBookToEdit() != undefined) {
-      result = this.booksManager.getCurrentBookToEdit().description;
+    if (this.apiService.getCurrentBookToEdit() != undefined) {
+      result = this.apiService.getCurrentBookToEdit().description;
     }
     return result;
   }
