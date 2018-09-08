@@ -28,7 +28,7 @@
   </div>
 
   <div class="ui buttons right floated">
-    <button class="ui button" onClick="$('.ui.modal').modal('hide');console.log(333)"> Cancel</button>
+    <button class="ui button" (click)="closeBookDetails()"> Cancel</button>
     <div class="or"></div>
     <button (click)="saveBookDetails(newtitle, newauthor, newgenre, newstatus, newnotes)"  class="ui positive button">Save</button>
   </div>

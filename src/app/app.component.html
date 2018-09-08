@@ -3,17 +3,17 @@
 <div class="ui modal">
   <div class="header">Add Information for a book</div>
   <div class="content">
-    <app-book-details></app-book-details>
+    <app-book-details (stockValueChange)='changeStockValue($event)' [show]='show'></app-book-details>
   </div>
 </div>
 
 
 <div>
-  <app-books-section sectionName='Reading Now' statusToShow='Reading'></app-books-section>
+  <app-books-section (stockValueChange)='changeStockValue($event)' sectionName='Reading Now' statusToShow='Reading'></app-books-section>
 </div>
 
 <div>
-  <app-books-section sectionName='I want to read' statusToShow='Read'></app-books-section>
+  <app-books-section (stockValueChange)='changeStockValue($event)' sectionName='I want to read' statusToShow='Read'></app-books-section>
 </div>
 
 

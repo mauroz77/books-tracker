@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormsModule, FormGroup, FormBuilder }   from '@angular/forms';
-
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormsModule, FormGroup, FormBuilder } from '@angular/forms';
 
 import { BooksService } from './../books.service';
 import { Book } from '../book.model';
@@ -12,102 +11,121 @@ import { Book } from '../book.model';
   styleUrls: ['./book-details.component.css']
 })
 export class BookDetailsComponent implements OnInit {
-  @Input() book: Book;
+  @Input() show: boolean;
   name: string = 'OnlyTest';
 
-  genres = ['Fantasy',  'Fiction', 'Science fiction', 'Action and Adventure',
+  genres = ['Fantasy', 'Fiction', 'Science fiction', 'Action and Adventure',
     'Mystery', 'Health', 'Science', 'Biographies'];
   statuses = ['Reading', 'Read', 'Planned'];
   detailsForm: FormGroup;
+  @Output() stockValueChange = new EventEmitter();
 
   constructor(private booksManager: BooksService, private fb: FormBuilder) {
-    this.book = new Book('dummyTitle', 'dummyAuthor','Fiction', 'Reading','desc');
+    //this.book = new Book('dummyTitle', 'dummyAuthor','Fiction', 'Reading','desc');
 
-   }
+  }
 
   ngOnInit() {
     this.detailsForm = this.fb.group({
       statusControl: [this.getStatusToDisplay()], genreControl: [this.getGenreToDisplay()]
     });
+    console.log('Current book when calling ngOnInit for book-details:');
+    console.log(this.booksManager.getCurrentBookToEdit());
+    console.log('ngOnInit was called and the following associations were done:');
+    console.log(' statusControl: ' + this.getStatusToDisplay());
+    console.log(' genreControl: ' + this.getGenreToDisplay());
   }
+
+  ngAfterContentInit() {
+    console.log('ESTAN AHÍ, ME ESCUCHAN???');
+  }
+
+  ngOnChanges() {
+    console.log('My value changed....................');
+    console.log('value of show '+this.show);
+    this.detailsForm = this.fb.group({
+      statusControl: [this.getStatusToDisplay()], genreControl: [this.getGenreToDisplay()]
+    });
+}
 
   saveBookDetails(
     title: HTMLInputElement,
     author: HTMLInputElement,
     genre: HTMLInputElement,
     status: HTMLInputElement,
-    notes: HTMLInputElement) : boolean { 
+    notes: HTMLInputElement): boolean {
 
     let aBook = this.booksManager.findBook(title.value);
-    if (aBook === null)
-    {
+    if (aBook === null) {
+      console.log('Book did not exist. Addig book:');
       let newBook: Book = new Book(title.value, author.value, genre.value, status.value, notes.value);
+      console.log(newBook);
       this.booksManager.addNewBook(newBook);
     }
-    else{
+    else {
       aBook.title = title.value;
       aBook.author = author.value;
       aBook.genre = genre.value;
       aBook.status = status.value;
       aBook.description = notes.value;
+      console.log('Book existed. Uodating book:');
+      console.log(aBook);
+
     }
 
     //<any>($(".ui.modal")).modal('hide');
-    (<any>$('.ui.modal') ).modal('hide');
-    
+    (<any>$('.ui.modal')).modal('hide');
+    this.stockValueChange.emit(false);
     console.log('Saved!');
 
     return false;
   }
 
-  getTitleToDisplay(): string
-  {
+  closeBookDetails(): void{
+    (<any>$('.ui.modal')).modal('hide');
+    this.stockValueChange.emit(false);
+    console.log('Closed by cancel!');
+  }
+
+  getTitleToDisplay(): string {
     let result = '';
 
-    if (this.book != undefined)
-    {
-      result = this.book.title;
+    if (this.booksManager.getCurrentBookToEdit() != undefined) {
+      result = this.booksManager.getCurrentBookToEdit().title;
     }
     return result;
   }
 
-  getAuthorToDisplay(): string
-  {
+  getAuthorToDisplay(): string {
     let result = '';
-    if (this.book != undefined)
-    {
-      result = this.book.author;
+    if (this.booksManager.getCurrentBookToEdit() != undefined) {
+      result = this.booksManager.getCurrentBookToEdit().author;
     }
     return result;
   }
 
-  getGenreToDisplay(): string
-  {
+  getGenreToDisplay(): string {
     let result = '';
-    if (this.book != undefined)
-    {
-      result = this.book.genre;
+    if (this.booksManager.getCurrentBookToEdit() != undefined) {
+      result = this.booksManager.getCurrentBookToEdit().genre;
     }
-    console.log('Genre: ' + result);
+    //console.log('Genre to display' + result);
     return result;
   }
 
-  getStatusToDisplay(): string
-  {
+  getStatusToDisplay(): string {
     let result = '';
-    if (this.book != undefined)
-    {
-      result = this.book.status;
+    if (this.booksManager.getCurrentBookToEdit() != undefined) {
+      result = this.booksManager.getCurrentBookToEdit().status;
     }
+    //console.log('Status to display: ' + result);
     return result;
   }
 
-  getDescriptionToDisplay(): string
-  {
+  getDescriptionToDisplay(): string {
     let result = '';
-    if (this.book != undefined)
-    {
-      result = this.book.description;
+    if (this.booksManager.getCurrentBookToEdit() != undefined) {
+      result = this.booksManager.getCurrentBookToEdit().description;
     }
     return result;
   }

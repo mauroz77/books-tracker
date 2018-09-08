@@ -2,6 +2,7 @@ import { Book } from '../book/book.model'
 
 export class BooksService {
     allTheBooks: Book[] = [];
+    currentBookToEdit: Book;
 
     constructor() {
         this.loadAllTheBooks();
@@ -17,20 +18,20 @@ export class BooksService {
         let book2 = new Book(
             'Cien años de Soledad',
             'Gabriel García Marquez',
-            "Fantasy",
+            "Fiction",
             "Reading",
             "hola2");
         let book3 = new Book(
             'Memoria de mis putas tristes',
-            'Gabriel García Marquez', "Fantasy",
+            'Gabriel García Marquez', "Science fiction",
             "Read", "");
         let book4 = new Book(
             'Cóndores no entierran todos los días',
-            'Gustavo Alvares Gardeazabal', "Fantasy",
+            'Gustavo Alvares Gardeazabal', "Action and Adventure",
             "Reading", "...");
         let book5 = new Book(
             'María',
-            'Jorge Isaacs', "Fantasy",
+            'Jorge Isaacs', "Mystery",
             "Reading", "");
 
         this.allTheBooks.push(book1);
@@ -57,6 +58,14 @@ export class BooksService {
 
     public addNewBook(newBook: Book):void {
         this.allTheBooks.push(newBook);
+    }
+
+    public setCurrentBookToEdit(currentBook):void{
+        this.currentBookToEdit = currentBook;
+    }
+
+    public getCurrentBookToEdit():Book{
+        return this.currentBookToEdit;
     }
 
 }

@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import { Book } from '../book.model'
+import { BooksService } from './../books.service';
 
 @Component({
   selector: 'app-book-cover',
@@ -8,18 +10,31 @@ import { Book } from '../book.model'
 })
 export class BookCoverComponent implements OnInit {
   @Input() book: Book;
+  @Output() show = new EventEmitter<boolean>();
+  @Input() stock: number;
+  @Output() stockValueChange = new EventEmitter();
 
-  constructor() {
+  constructor(private booksManager: BooksService) {
   }
 
   ngOnInit() {
   }
 
-  holi()
+  showBookDetails()
   {
-    console.log("Clicked!!!");
-    //$('.ui.modal').modal('show');
+    console.log("Clicked cover to see details. Setting this book to be displayed:");
+    console.log(this.book);
+    this.booksManager.setCurrentBookToEdit(this.book);
     (<any>$('.ui.modal') ).modal('show');
+
+    this.show.emit(true);
+    console.log('I emmitedd................');
+    this.stockValueChange.emit(true);
+
   }
+
+  ngOnChanges() {
+    console.log('ngOnChanges called');
+}
 
 }
