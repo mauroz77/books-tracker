@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { BooksService } from './book/books.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,12 +10,22 @@ import { Component, Input } from '@angular/core';
 export class AppComponent {
   title = 'books-tracker';
 
+  constructor(private booksManager: BooksService) {
+  }
+
   // The book-details component will be notify to any change in this status
   show: boolean = false;
 
   // Method used by children components to notify that the book-details visibility status has changed
   changeShowValue(showStatus: boolean){
     this.show = showStatus;
+  }
+
+  openNewBookDetails(): void {
+    this.booksManager.setCurrentBookToEdit(undefined);
+    this.show = true;
+    (<any>$('.ui.modal') ).modal('show');
+    return;
   }
     
 }
