@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-///////import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +7,13 @@ import { Component, Input } from '@angular/core';
 })
 export class AppComponent {
   title = 'books-tracker';
+
+  // The book-details component will be notify to any change in this status
   show: boolean = false;
 
-  changeStockValue(p) {
-    console.log(p+'   Until parent This is propagatted from children. It means one of my clildren called the show componet...');
-    this.show = p;
+  // Method used by children components to notify that the book-details visibility status has changed
+  changeShowValue(showStatus: boolean){
+    this.show = showStatus;
   }
     
-
 }

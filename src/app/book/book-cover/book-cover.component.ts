@@ -10,9 +10,8 @@ import { BooksService } from './../books.service';
 })
 export class BookCoverComponent implements OnInit {
   @Input() book: Book;
-  @Output() show = new EventEmitter<boolean>();
-  @Input() stock: number;
-  @Output() stockValueChange = new EventEmitter();
+  //@Output() show = new EventEmitter<boolean>();
+  @Output() showValueChange = new EventEmitter();
 
   constructor(private booksManager: BooksService) {
   }
@@ -26,15 +25,8 @@ export class BookCoverComponent implements OnInit {
     console.log(this.book);
     this.booksManager.setCurrentBookToEdit(this.book);
     (<any>$('.ui.modal') ).modal('show');
-
-    this.show.emit(true);
-    console.log('I emmitedd................');
-    this.stockValueChange.emit(true);
+    this.showValueChange.emit(true);
 
   }
-
-  ngOnChanges() {
-    console.log('ngOnChanges called');
-}
 
 }

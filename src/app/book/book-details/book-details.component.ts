@@ -12,41 +12,30 @@ import { Book } from '../book.model';
 })
 export class BookDetailsComponent implements OnInit {
   @Input() show: boolean;
-  name: string = 'OnlyTest';
 
   genres = ['Fantasy', 'Fiction', 'Science fiction', 'Action and Adventure',
     'Mystery', 'Health', 'Science', 'Biographies'];
   statuses = ['Reading', 'Read', 'Planned'];
   detailsForm: FormGroup;
-  @Output() stockValueChange = new EventEmitter();
+  @Output() showValueChange = new EventEmitter();
 
   constructor(private booksManager: BooksService, private fb: FormBuilder) {
-    //this.book = new Book('dummyTitle', 'dummyAuthor','Fiction', 'Reading','desc');
-
   }
 
   ngOnInit() {
-    this.detailsForm = this.fb.group({
-      statusControl: [this.getStatusToDisplay()], genreControl: [this.getGenreToDisplay()]
-    });
-    console.log('Current book when calling ngOnInit for book-details:');
-    console.log(this.booksManager.getCurrentBookToEdit());
-    console.log('ngOnInit was called and the following associations were done:');
-    console.log(' statusControl: ' + this.getStatusToDisplay());
-    console.log(' genreControl: ' + this.getGenreToDisplay());
-  }
-
-  ngAfterContentInit() {
-    console.log('ESTAN AHÍ, ME ESCUCHAN???');
+    this.setSelectedValuesInDropdowns();
   }
 
   ngOnChanges() {
-    console.log('My value changed....................');
-    console.log('value of show '+this.show);
+    console.info('Visibility status changed. Setting again selected values in Select components.');
+    this.setSelectedValuesInDropdowns();
+  }
+
+  private setSelectedValuesInDropdowns(): void {
     this.detailsForm = this.fb.group({
       statusControl: [this.getStatusToDisplay()], genreControl: [this.getGenreToDisplay()]
     });
-}
+  }
 
   saveBookDetails(
     title: HTMLInputElement,
@@ -68,23 +57,25 @@ export class BookDetailsComponent implements OnInit {
       aBook.genre = genre.value;
       aBook.status = status.value;
       aBook.description = notes.value;
-      console.log('Book existed. Uodating book:');
+      console.log('Book existed. Updating book:');
       console.log(aBook);
 
     }
 
-    //<any>($(".ui.modal")).modal('hide');
-    (<any>$('.ui.modal')).modal('hide');
-    this.stockValueChange.emit(false);
+    this.hideComponentAndEmitStatus();
     console.log('Saved!');
 
     return false;
   }
 
-  closeBookDetails(): void{
-    (<any>$('.ui.modal')).modal('hide');
-    this.stockValueChange.emit(false);
+  closeBookDetails(): void {
+    this.hideComponentAndEmitStatus();
     console.log('Closed by cancel!');
+  }
+
+  private hideComponentAndEmitStatus(): void {
+    (<any>$('.ui.modal')).modal('hide');
+    this.showValueChange.emit(false);
   }
 
   getTitleToDisplay(): string {
@@ -109,7 +100,6 @@ export class BookDetailsComponent implements OnInit {
     if (this.booksManager.getCurrentBookToEdit() != undefined) {
       result = this.booksManager.getCurrentBookToEdit().genre;
     }
-    //console.log('Genre to display' + result);
     return result;
   }
 
@@ -118,7 +108,7 @@ export class BookDetailsComponent implements OnInit {
     if (this.booksManager.getCurrentBookToEdit() != undefined) {
       result = this.booksManager.getCurrentBookToEdit().status;
     }
-    //console.log('Status to display: ' + result);
+
     return result;
   }
 
@@ -129,5 +119,4 @@ export class BookDetailsComponent implements OnInit {
     }
     return result;
   }
-
 }
