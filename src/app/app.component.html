@@ -1,14 +1,13 @@
-
 <div class="ui centered cards">
   <div class="card">
     <div class="content">
       <div class="header">Got something new?</div>
       <div class="description">
-        Any book you just read? A friend recommended you an book and you don't want to forget it? Add it here!
+        Any book you just read? A friend recommended you a book and you don't want to forget it? Add it here!
       </div>
     </div>
     <div class="ui bottom attached button" (click)="openNewBookDetails()">
-      <i  class="add icon"></i>
+      <i class="add icon"></i>
       Add book
     </div>
   </div>
@@ -17,12 +16,29 @@
 <div class="ui hidden divider"></div>
 <div class="ui hidden divider"></div>
 
-<div class="ui modal">
+<div class="buttonHolder">
+  <button class="positive ui button" (click)="openNewStatistics()">See some Statistics</button>
+</div>
+
+
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
+
+
+<div class="ui modal modal_details">
   <div class="header">Add Information for a book</div>
   <div class="content">
     <app-book-details (showValueChange)='changeShowValue($event)' [show]='show'></app-book-details>
   </div>
 </div>
+
+
+<div class="ui modal statistics">
+  <div class="content">
+    <app-statistics [(showStatistics)]='showStatistics'></app-statistics>
+  </div>
+</div>
+
 
 <h4 class="ui horizontal divider header">
   <i class="book icon"></i>

@@ -9,6 +9,7 @@ import { BookCoverComponent } from './book/book-cover/book-cover.component';
 import { BookDetailsComponent } from './book/book-details/book-details.component';
 import { BooksSectionComponent } from './books-section/books-section.component';
 import { BooksService } from './book/books.service';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 
@@ -17,7 +18,8 @@ import { BooksService } from './book/books.service';
     AppComponent,
     BookCoverComponent,
     BookDetailsComponent,
-    BooksSectionComponent
+    BooksSectionComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

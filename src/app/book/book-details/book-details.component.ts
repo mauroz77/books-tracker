@@ -15,9 +15,9 @@ declare var $: any;
 export class BookDetailsComponent implements OnInit {
   @Input() show: boolean;
 
-  genres = ['Fantasy', 'Fiction', 'Science fiction', 'Action and Adventure',
-    'Mystery', 'Health', 'Science', 'Biographies', 'Historical Novel', 'Education'];
-  statuses = ['Reading', 'Read', 'Planned'];
+  genres = this.apiService.getGenres();
+  statuses = this.apiService.getStatuses();
+  
   detailsForm: FormGroup;
   @Output() showValueChange = new EventEmitter();
 
@@ -113,7 +113,8 @@ export class BookDetailsComponent implements OnInit {
   }
 
   private hideComponentAndEmitStatus(): void {
-    (<any>$('.ui.modal')).modal('hide');
+    (<any>$('.ui.modal.modal_details')).modal('hide');
+
     this.showValueChange.emit(false);
   }
 

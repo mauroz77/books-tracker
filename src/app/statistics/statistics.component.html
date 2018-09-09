@@ -1,0 +1,65 @@
+<div class="ui large form segment">
+  <h3 class="ui header">Book's Statistics</h3>
+
+  <div class="ui attached message">
+    <p>Here you'll see some statistics about your books:</p>
+  </div>
+
+  <h4 class="ui horizontal divider header">
+    Statistics by status
+  </h4>
+
+  <div class="ui statistic">
+    <div class="label">
+      Reading
+    </div>
+    <div class="value">
+      {{ readingCounter }}
+    </div>
+  </div>
+
+  <div class="ui statistic">
+    <div class="label">
+      Already read
+    </div>
+    <div class="value">
+        {{ readCounter }}
+    </div>
+  </div>
+
+  <div class="ui statistic">
+    <div class="label">
+      Planned to read
+    </div>
+    <div class="value">
+        {{ plannedCounter }}
+    </div>
+  </div>
+
+  <h4 class="ui horizontal divider header">
+    Statistics by genre
+  </h4>
+
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Genre</th>
+        <th>Number of read books</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let genre of sortedCounterByGenreKeys">
+        <td>{{ genre }}</td>
+        <td>{{ countsByGenre[genre] }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="ui buttons right floated">
+      <button class="ui button" (click)="closeBooksStatistics()"> Close </button>
+    </div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+
+  
+
+</div>

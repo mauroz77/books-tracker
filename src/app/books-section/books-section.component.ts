@@ -26,11 +26,10 @@ export class BooksSectionComponent implements OnInit {
   public initBooks() {
     this.apiService.getBooks().subscribe((data: Array<object>) => {
       this.allTheBooks = data as Book[];
+      //console.log('In section...');
+      //console.dir(this.allTheBooks);
+      this.apiService.setAllTheBooks(this.allTheBooks);
     });
-  }
-
-  public getBooksByStatus(status: string): Book[] {
-    return this.allTheBooks.filter(book => book.status == status)
   }
 
   getBooks() {

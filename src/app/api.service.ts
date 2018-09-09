@@ -14,6 +14,10 @@ export class ApiService {
   private allTheBooks: Book[] = [];
   currentBookToEdit: Book;
 
+  private genres = ['Fantasy', 'Fiction', 'Science fiction', 'Action and Adventure',
+    'Mystery', 'Health', 'Science', 'Biographies', 'Historical Novel', 'Education'];
+  private statuses = ['Reading', 'Read', 'Planned'];
+
   constructor(private httpClient: HttpClient) {
     this.initBooks();
   }
@@ -26,6 +30,13 @@ export class ApiService {
 
   getBooks() {
     return this.httpClient.get(`${this.API_URL}/books/`);
+  }
+
+  public getGenres(): string[] {
+    return this.genres;
+  }
+  public getStatuses(): string[] {
+    return this.statuses;
   }
 
   createBook(book) {

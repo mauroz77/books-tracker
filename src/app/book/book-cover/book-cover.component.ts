@@ -24,7 +24,10 @@ export class BookCoverComponent implements OnInit {
     console.log("Clicked cover to see details. Setting this book to be displayed:");
     console.log(this.book);
     this.apiService.setCurrentBookToEdit(this.book);
-    (<any>$('.ui.modal')).modal('show');
+
+    (<any>$('.ui.modal.modal_details')).modal('show');
+
+    //(<any>$('.ui.modal')).modal('show');
     this.showValueChange.emit(true);
   }
 
