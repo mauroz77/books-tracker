@@ -29,17 +29,19 @@ export class BookCoverComponent implements OnInit {
   }
 
   deleteBook() {
-    this.apiService.deleteBook(this.book._id).subscribe((response) => {
-      console.log('RESPONSE delete: ' + response);
-    });
-
-    var that = this;
-    setTimeout(function () {
-      that.apiService.getBooks().subscribe((data: Array<object>) => {
-        let allTheBooks = data as Book[];
-        that.apiService.setAllTheBooks(allTheBooks);
+    if (confirm("Do you really want to delete the book '" + this.book.title + "'?")) {
+      this.apiService.deleteBook(this.book._id).subscribe((response) => {
+        console.log('RESPONSE delete: ' + response);
       });
-  }, 1000);
+
+      var that = this;
+      setTimeout(function () {
+        that.apiService.getBooks().subscribe((data: Array<object>) => {
+          let allTheBooks = data as Book[];
+          that.apiService.setAllTheBooks(allTheBooks);
+        });
+      }, 1000);
+    }
   }
 
 }
