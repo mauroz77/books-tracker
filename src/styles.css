@@ -8,6 +8,15 @@
   }
   */
 
+  .ui.segment.form {
+    background-color: #F1F9FF;
+    margin-top: 2em;
+  }
+
+  .logo.small {
+    height: 70px;
+  }
+
  .bottomButton {
     position: absolute;
     bottom: 0px;

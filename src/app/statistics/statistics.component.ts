@@ -12,16 +12,16 @@ declare var $: any;
 })
 export class StatisticsComponent implements OnInit {
 
-  private books: Book[] = [];
-  private readingCounter: number = 0;
-  private readCounter: number = 0;
-  private plannedCounter: number = 0;
+  books: Book[] = [];
+  readingCounter: number = 0;
+  readCounter: number = 0;
+  plannedCounter: number = 0;
 
   @Input() showStatistics: boolean;
   @Output() showStatisticsChange = new EventEmitter();
 
-  private countsByGenre = {};
-  private sortedCounterByGenreKeys = [];
+  countsByGenre = {};
+  sortedCounterByGenreKeys = [];
 
   constructor(private apiService: ApiService) { }
 
