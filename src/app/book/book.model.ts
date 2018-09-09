@@ -1,5 +1,5 @@
 export class Book {
-    id: string
+    _id: string
     title: string;
     author: string;
     description: string;
@@ -7,7 +7,7 @@ export class Book {
     status: string;
 
     constructor(title: string, author: string, genre: string, status: string, description: string, id = "") {
-        this.id = id;
+        this._id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;

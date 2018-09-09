@@ -7,7 +7,6 @@ import { ApiService } from '../../api.service';
 
 declare var $: any;
 
-
 @Component({
   selector: 'app-book-details',
   templateUrl: './book-details.component.html',
@@ -30,7 +29,6 @@ export class BookDetailsComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.info('Visibility status changed. Setting again selected values in Select components.');
     this.setSelectedValuesInDropdowns();
   }
 
@@ -61,14 +59,22 @@ export class BookDetailsComponent implements OnInit {
       aBook.genre = genre.value;
       aBook.status = status.value;
       aBook.description = notes.value;
-      this.updateBook(aBook);
-      console.log('Book existed. Updating book:');
-      console.log(aBook);
 
+      console.log('Book existed. Updating book:');
+      this.updateBook(aBook);
+
+      console.log(aBook);
     }
 
     this.hideComponentAndEmitStatus();
-    console.log('Saved!');
+
+    var that = this;
+    setTimeout(function () {
+      that.apiService.getBooks().subscribe((data: Array<object>) => {
+        let allTheBooks = data as Book[];
+        that.apiService.setAllTheBooks(allTheBooks);
+      });
+  }, 1000);
 
     return false;
   }
@@ -81,10 +87,10 @@ export class BookDetailsComponent implements OnInit {
       status: book.status,
       description: book.description
     };
-    this.apiService.createBook(book).subscribe((response) => {
-      console.log(response);
+    this.apiService.createBook(bookPayLoad).subscribe((response) => {
+      console.log('(1) I create the book: ');
+      console.dir(response);
     });
-    this.apiService.initBooks();
   }
 
   updateBook(book: Book) {
@@ -96,15 +102,14 @@ export class BookDetailsComponent implements OnInit {
       description: book.description
     };
     this.apiService.updateBook(book).subscribe((response) => {
-      console.log(response);
+      console.log('RESPONSE for updating:');
+      console.dir(response);
     });
-    this.apiService.initBooks();
   }
 
 
   closeBookDetails(): void {
     this.hideComponentAndEmitStatus();
-    console.log('Closed by cancel!');
   }
 
   private hideComponentAndEmitStatus(): void {

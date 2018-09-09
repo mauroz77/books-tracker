@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Book } from '../book.model'
-import { BooksService } from './../books.service';
 import { ApiService } from './../../api.service';
 
 declare var $: any;
@@ -13,15 +12,9 @@ declare var $: any;
 })
 export class BookCoverComponent implements OnInit {
   @Input() book: Book;
-  //@Output() show = new EventEmitter<boolean>();
   @Output() showValueChange = new EventEmitter();
 
-
-
-  private otherBooks: Array<object> = [];
-
-  constructor(private booksManager: BooksService, private apiService: ApiService) {
-    ///console.log('Call: ' + apiService.getBooks())
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit() {
@@ -33,22 +26,20 @@ export class BookCoverComponent implements OnInit {
     this.apiService.setCurrentBookToEdit(this.book);
     (<any>$('.ui.modal')).modal('show');
     this.showValueChange.emit(true);
-
   }
 
-  hay(event) {
-    console.log('ÑÑÑÑÑÑ');
-    //(<any>$('.ui.raised.segment') ).modal('show');
-    //$(event.target).transition('jiggle');
-    //console.log(event.target);
-    
+  deleteBook() {
+    this.apiService.deleteBook(this.book._id).subscribe((response) => {
+      console.log('RESPONSE delete: ' + response);
+    });
 
-    /*$(event.target)
-      .transition({
-        animation: 'tada',
-        duration: '1s'
-      });*/
-    
+    var that = this;
+    setTimeout(function () {
+      that.apiService.getBooks().subscribe((data: Array<object>) => {
+        let allTheBooks = data as Book[];
+        that.apiService.setAllTheBooks(allTheBooks);
+      });
+  }, 1000);
   }
 
 }

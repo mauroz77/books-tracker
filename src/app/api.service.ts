@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 
 import { Book } from './book/book.model'
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  API_URL = 'https://serene-sands-35839.herokuapp.com/';
-  allTheBooks: Book[] = [];
+  API_URL = 'https://serene-sands-35839.herokuapp.com';
+  //API_URL = 'http://localhost:8080';
+  private allTheBooks: Book[] = [];
   currentBookToEdit: Book;
 
   constructor(private httpClient: HttpClient) {
@@ -19,7 +21,6 @@ export class ApiService {
   public initBooks() {
     this.getBooks().subscribe((data: Array<object>) => {
       this.allTheBooks = data as Book[];
-      //console.log(data);
     });
   }
 
@@ -33,6 +34,10 @@ export class ApiService {
 
   updateBook(book) {
     return this.httpClient.post(`${this.API_URL}/books/update`, book);
+  }
+
+  deleteBook(id) {
+    return this.httpClient.post(`${this.API_URL}/books/deletion/${id}`,'');
   }
 
   public getBooksByStatus(status: string): Book[] {
@@ -59,5 +64,13 @@ export class ApiService {
 
   public getCurrentBookToEdit(): Book {
     return this.currentBookToEdit;
+  }
+
+  public setAllTheBooks(books: Book[]) {
+    this.allTheBooks = books;
+  }
+
+  public getAllTheBooks(): Book[] {
+    return this.allTheBooks;
   }
 }
